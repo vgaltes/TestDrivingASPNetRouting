@@ -14,6 +14,8 @@ namespace TestDrivingASPNetRouting.Tests
         {
             routes.MapRoute("MixedSegments", "Mixed{controller}/{action}");
 
+            routes.MapRoute("OptionalSegment", "Optional{controller}/{action}/{id}", new { id = UrlParameter.Optional });
+
             routes.MapRoute("Alias", "OldAdmin/OldIndex", new { controller = "Admin", action = "Index" });
 
             routes.MapRoute("SimpleRoute", "{controller}/{action}", 
@@ -21,7 +23,9 @@ namespace TestDrivingASPNetRouting.Tests
 
             routes.MapRoute("Public", "Public/{controller}/{action}");
 
-            routes.MapRoute("CustomSegment", "{controller}/{action}/{id}");
+            
+
+            routes.MapRoute("CustomSegment", "{controller}/{action}/{id}");            
         }
     }
 }
