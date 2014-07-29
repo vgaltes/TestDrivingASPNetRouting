@@ -12,6 +12,7 @@ namespace TestDrivingASPNetRouting.Tests
         [TestMethod]
         public void TestSimpleRoute()
         {
+            // Arrange - register routes
             RouteCollection routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
             // Act - process the route
@@ -26,6 +27,7 @@ namespace TestDrivingASPNetRouting.Tests
         [TestMethod]
         public void TestDefaults()
         {
+            // Arrange - register routes
             RouteCollection routes = new RouteCollection();
             RouteConfig.RegisterRoutes(routes);
             // Act - process the route
@@ -35,6 +37,21 @@ namespace TestDrivingASPNetRouting.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual("DefaultController", result.Values["controller"]);
             Assert.AreEqual("DefaultIndex", result.Values["action"]);
+        }
+
+        [TestMethod]
+        public void TestStaticUrlSegments()
+        {
+            // Arrange - register routes
+            RouteCollection routes = new RouteCollection();
+            RouteConfig.RegisterRoutes(routes);
+            // Act - process the route
+            RouteData result
+            = routes.GetRouteData(CreateHttpContext("~/Public/Admin/Index"));
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Admin", result.Values["controller"]);
+            Assert.AreEqual("Index", result.Values["action"]);
         }
 
         private HttpContextBase CreateHttpContext(string targetUrl = null)
