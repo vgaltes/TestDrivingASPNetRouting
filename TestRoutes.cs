@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Routing;
 using System.Web;
 using Moq;
+using System.Web.Mvc;
 
 namespace TestDrivingASPNetRouting.Tests
 {
@@ -79,6 +80,17 @@ namespace TestDrivingASPNetRouting.Tests
             Assert.AreEqual("SomeId", GetRouteValueFor(result, "id"));
         }
 
+        [TestMethod]
+        public void TestOptionalSegment()
+        {
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/OptionalAdmin/Index"));
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Admin", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
+            Assert.AreEqual(UrlParameter.Optional, GetRouteValueFor(result, "id"));
+        }
+
         private HttpContextBase CreateHttpContext(string targetUrl = null)
         {
             var mockRequest = new Mock<HttpRequestBase>();
@@ -97,9 +109,9 @@ namespace TestDrivingASPNetRouting.Tests
             return mockContext.Object;
         }
 
-        private string GetRouteValueFor(RouteData result, string key)
+        private object GetRouteValueFor(RouteData result, string key)
         {
-            return result.Values[key].ToString();
+            return result.Values[key];
         }
     }
 }
