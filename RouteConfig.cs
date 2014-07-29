@@ -14,6 +14,8 @@ namespace TestDrivingASPNetRouting.Tests
         {
             routes.MapRoute("MixedSegments", "Mixed{controller}/{action}");
 
+            routes.MapRoute("Alias", "OldAdmin/OldIndex", new { controller = "Admin", action = "Index" });
+
             routes.MapRoute("SimpleRoute", "{controller}/{action}", 
                 new { controller = "DefaultController", action = "DefaultIndex" });
 
