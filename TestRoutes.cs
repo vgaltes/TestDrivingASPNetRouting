@@ -19,8 +19,8 @@ namespace TestDrivingASPNetRouting.Tests
             = routes.GetRouteData(CreateHttpContext("~/Admin/Index"));
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("controller", result.Values["controller"]);
-            Assert.AreEqual("action", result.Values["action"]);
+            Assert.AreEqual("Admin", result.Values["controller"]);
+            Assert.AreEqual("Index", result.Values["action"]);
         }
 
         private HttpContextBase CreateHttpContext(string targetUrl = null)
