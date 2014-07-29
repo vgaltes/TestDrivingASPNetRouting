@@ -20,6 +20,8 @@ namespace TestDrivingASPNetRouting.Tests
                 new { controller = "DefaultController", action = "DefaultIndex" });
 
             routes.MapRoute("Public", "Public/{controller}/{action}");
+
+            routes.MapRoute("CustomSegment", "{controller}/{action}/{id}");
         }
     }
 }
