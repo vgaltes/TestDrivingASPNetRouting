@@ -48,6 +48,16 @@ namespace TestDrivingASPNetRouting.Tests
             Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
         }
 
+        [TestMethod]
+        public void TestMixedSegments()
+        {
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/MixedAdmin/Index"));
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Admin", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
+        }
+
         private HttpContextBase CreateHttpContext(string targetUrl = null)
         {
             var mockRequest = new Mock<HttpRequestBase>();
