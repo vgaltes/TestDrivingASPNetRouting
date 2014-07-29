@@ -23,6 +23,20 @@ namespace TestDrivingASPNetRouting.Tests
             Assert.AreEqual("Index", result.Values["action"]);
         }
 
+        [TestMethod]
+        public void TestDefaults()
+        {
+            RouteCollection routes = new RouteCollection();
+            RouteConfig.RegisterRoutes(routes);
+            // Act - process the route
+            RouteData result
+            = routes.GetRouteData(CreateHttpContext("~/"));
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("DefaultController", result.Values["controller"]);
+            Assert.AreEqual("DefaultIndex", result.Values["action"]);
+        }
+
         private HttpContextBase CreateHttpContext(string targetUrl = null)
         {
             var mockRequest = new Mock<HttpRequestBase>();
