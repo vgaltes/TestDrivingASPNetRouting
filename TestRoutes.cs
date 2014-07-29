@@ -91,6 +91,17 @@ namespace TestDrivingASPNetRouting.Tests
             Assert.AreEqual(UrlParameter.Optional, GetRouteValueFor(result, "id"));
         }
 
+        [TestMethod]
+        public void TestOptionalSegmentWithValue()
+        {
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/OptionalAdmin/Index/4"));
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Admin", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
+            Assert.AreEqual("4", GetRouteValueFor(result, "id"));
+        }
+
         private HttpContextBase CreateHttpContext(string targetUrl = null)
         {
             var mockRequest = new Mock<HttpRequestBase>();
