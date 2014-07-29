@@ -58,6 +58,16 @@ namespace TestDrivingASPNetRouting.Tests
             Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
         }
 
+        [TestMethod]
+        public void TestAlias()
+        {
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/OldAdmin/OldIndex"));
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Admin", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
+        }
+
         private HttpContextBase CreateHttpContext(string targetUrl = null)
         {
             var mockRequest = new Mock<HttpRequestBase>();
