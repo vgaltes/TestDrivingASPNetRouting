@@ -16,6 +16,8 @@ namespace TestDrivingASPNetRouting.Tests
 
             routes.MapRoute("OptionalSegment", "Optional{controller}/{action}/{id}", new { id = UrlParameter.Optional });
 
+            routes.MapRoute("CatchAllSegment", "CatchAll{controller}/{action}/{id}/{*catchAll}");
+
             routes.MapRoute("Alias", "OldAdmin/OldIndex", new { controller = "Admin", action = "Index" });
 
             routes.MapRoute("SimpleRoute", "{controller}/{action}", 
