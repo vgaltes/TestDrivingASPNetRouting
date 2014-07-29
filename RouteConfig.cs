@@ -14,6 +14,8 @@ namespace TestDrivingASPNetRouting.Tests
         {
             routes.MapRoute("SimpleRoute", "{controller}/{action}", 
                 new { controller = "DefaultController", action = "DefaultIndex" });
+
+            routes.MapRoute("Public", "Public/{controller}/{action}");
         }
     }
 }

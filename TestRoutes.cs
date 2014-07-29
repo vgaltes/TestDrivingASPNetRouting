@@ -9,49 +9,43 @@ namespace TestDrivingASPNetRouting.Tests
     [TestClass]
     public class TestRoutes
     {
+        RouteCollection routes;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            routes = new RouteCollection();
+            RouteConfig.RegisterRoutes(routes);
+        }
+
         [TestMethod]
         public void TestSimpleRoute()
-        {
-            // Arrange - register routes
-            RouteCollection routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes);
-            // Act - process the route
-            RouteData result
-            = routes.GetRouteData(CreateHttpContext("~/Admin/Index"));
-            // Assert
+        {           
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/Admin/Index"));
+            
             Assert.IsNotNull(result);
-            Assert.AreEqual("Admin", result.Values["controller"]);
-            Assert.AreEqual("Index", result.Values["action"]);
-        }
+            Assert.AreEqual("Admin", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
+        }       
 
         [TestMethod]
         public void TestDefaults()
         {
-            // Arrange - register routes
-            RouteCollection routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes);
-            // Act - process the route
-            RouteData result
-            = routes.GetRouteData(CreateHttpContext("~/"));
-            // Assert
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/"));
+
             Assert.IsNotNull(result);
-            Assert.AreEqual("DefaultController", result.Values["controller"]);
-            Assert.AreEqual("DefaultIndex", result.Values["action"]);
+            Assert.AreEqual("DefaultController", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("DefaultIndex", GetRouteValueFor(result, "action"));
         }
 
         [TestMethod]
         public void TestStaticUrlSegments()
         {
-            // Arrange - register routes
-            RouteCollection routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes);
-            // Act - process the route
-            RouteData result
-            = routes.GetRouteData(CreateHttpContext("~/Public/Admin/Index"));
-            // Assert
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/Public/Admin/Index"));
+
             Assert.IsNotNull(result);
-            Assert.AreEqual("Admin", result.Values["controller"]);
-            Assert.AreEqual("Index", result.Values["action"]);
+            Assert.AreEqual("Admin", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
         }
 
         private HttpContextBase CreateHttpContext(string targetUrl = null)
@@ -70,6 +64,11 @@ namespace TestDrivingASPNetRouting.Tests
             mockContext.Setup(c => c.Response).Returns(mockResponseBase.Object);
 
             return mockContext.Object;
+        }
+
+        private string GetRouteValueFor(RouteData result, string key)
+        {
+            return result.Values[key].ToString();
         }
     }
 }
