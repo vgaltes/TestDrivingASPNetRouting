@@ -12,7 +12,8 @@ namespace TestDrivingASPNetRouting.Tests
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapRoute("SimpleRoute", "{controller}/{action}");
+            routes.MapRoute("SimpleRoute", "{controller}/{action}", 
+                new { controller = "DefaultController", action = "DefaultIndex" });
         }
     }
 }
