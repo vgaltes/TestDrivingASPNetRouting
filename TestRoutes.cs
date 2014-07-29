@@ -102,6 +102,18 @@ namespace TestDrivingASPNetRouting.Tests
             Assert.AreEqual("4", GetRouteValueFor(result, "id"));
         }
 
+        [TestMethod]
+        public void TestVariableLengthRoute()
+        {
+            RouteData result = routes.GetRouteData(CreateHttpContext("~/CatchAllAdmin/Index/SubIndex/Step1/Step2/Step3"));
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Admin", GetRouteValueFor(result, "controller"));
+            Assert.AreEqual("Index", GetRouteValueFor(result, "action"));
+            Assert.AreEqual("SubIndex", GetRouteValueFor(result, "id"));
+            Assert.AreEqual("Step1/Step2/Step3", GetRouteValueFor(result, "catchAll"));
+        }
+
         private HttpContextBase CreateHttpContext(string targetUrl = null)
         {
             var mockRequest = new Mock<HttpRequestBase>();
